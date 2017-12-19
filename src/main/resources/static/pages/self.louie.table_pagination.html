@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bootstrap+Vue实现分页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <script src="//cdn.bootcss.com/vue/2.5.8/vue.min.js"></script>
+</head>
+<body>
+<div class="">
+    <div class="container mx-auto w-75" id="vueApp">
+        <div class="row" style="margin-top: 20px">
+            <div class="col-12 text-center">
+                <h3>会员信息表</h3>
+            </div>
+        </div>
+        <div class="row" style="height: 15px"></div>
+        <div class="row">
+            <div class="col-6">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#myModal">新增</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm">保存</button>
+                </div>
+                <button type="button" class="btn btn-outline-warning btn-sm">删除</button>
+            </div>
+            <div class="col-6">
+                <div class="input-group">
+                    <input type="text" class="form-control input-group-sm" placeholder="">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="height: 15px"></div>
+        <div class="row">
+            <table class="table table-hover table-striped table-bordered table-sm">
+                <thead class="">
+                <tr>
+                    <th><input type="checkbox"></th>
+                    <th>序号</th>
+                    <th>会员号</th>
+                    <th>姓名</th>
+                    <th>手机号</th>
+                    <th>办公电话</th>
+                    <th>邮箱地址</th>
+                    <th>状态</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(user,index) in userList">
+                    <td><input type="checkbox" :value="index" v-model="checkedRows"></td>
+                    <td>{{pageNow*10 + index+1}}</td>
+                    <td>{{user.id}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.mobile}}</td>
+                    <td>{{user.officetel}}</td>
+                    <td>{{user.email}}</td>
+                    <td v-if="user.disenable == 0">正常</td>
+                    <td v-else>注销</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row mx-auto">
+            <ul class="nav justify-content-center">
+                <li class="page-item">
+                    <a href="#" class="page-link"><i class="fa fa-angle-double-left" @click="switchToPage(0)"></i></a>
+                </li>
+                <li class="page-item">
+                    <a href="#" class="page-link"><i class="fa fa-angle-left" @click="switchToPage(pageNow-1)"></i></a>
+                </li>
+                <li class="page-item" v-for="n in totalPages" :class="{active:n==pageNow+1}">
+                    <a href="#" @click="switchToPage(n-1)" class="page-link">{{n}}</a>
+                </li>
+                <li class="page-item">
+                    <a href="#" class="page-link"><i class="fa fa-angle-right" @click="switchToPage(pageNow+1)"></i></a>
+                </li>
+                <li class="page-item">
+                    <a href="#" class="page-link"><i class="fa fa-angle-double-right" @click="switchToPage(totalPages-1)"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    var vueApp = new Vue({
+        el:"#vueApp",
+        data:{
+            userList:[],
+            perPage:10,
+            pageNow:0,
+            totalPages:0,
+            checkedRows:[]
+        },
+        methods:{
+            switchToPage:function (pageNo) {
+                if (pageNo < 0 || pageNo >= this.totalPages){
+                    return false;
+                }
+                getUserByPage(pageNo);
+            }
+        }
+    });
+
+    getUserByPage(0);
+
+    function getUserByPage(pageNow) {
+        $.ajax({
+            url:"http://localhost/user/"+pageNow,
+            success:function (datas) {
+                vueApp.userList = datas.content;
+                vueApp.totalPages = datas.totalPages;
+                vueApp.pageNow = pageNow;
+            },
+            error:function (res) {
+                console.log(res);
+            }
+        });
+    }
+</script>

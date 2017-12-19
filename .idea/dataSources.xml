@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="3784345654">
+    <data-source source="LOCAL" name="SQL Server (Microsoft) - aws5-shsilk@localhost" uuid="8b30ad7b-53a4-45e6-830e-199fab6f2a61">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://localhost:1433;databaseName=aws5-shsilk</jdbc-url>
+    </data-source>
+  </component>
+</project>
