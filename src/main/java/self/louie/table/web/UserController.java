@@ -22,8 +22,8 @@ public class UserController {
 
     /**
      * 分页获取用户
-     * @param pageNow
-     * @return
+     * @param pageNow 当前页码
+     * @return 分页用户数据
      */
     @RequestMapping("/{pageNow}")
     public Page<User> findByPage(@PathVariable Integer pageNow){

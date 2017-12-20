@@ -14,12 +14,6 @@ import java.util.List;
 public interface UserService {
 
     /**
-     * 获取总页数
-     * @return
-     */
-    public Long getTotalPage();
-
-    /**
      * 分页获取用户
      * @param pageNow
      * @return

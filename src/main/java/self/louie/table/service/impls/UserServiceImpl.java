@@ -26,11 +26,6 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public Long getTotalPage() {
-        return userRepository.count();
-    }
-
-    @Override
     public Page<User> findUserPaging(Integer pageNow) {
         Pageable pageable = new PageRequest(pageNow,perPage,Sort.Direction.DESC,"id");
         return userRepository.findAll(pageable);
