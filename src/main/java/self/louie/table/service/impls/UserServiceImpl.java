@@ -11,8 +11,6 @@ import self.louie.table.bean.User;
 import self.louie.table.dao.UserRepository;
 import self.louie.table.service.UserService;
 
-import java.util.List;
-
 /**
  * 用户服务接口实现类
  * @author louie

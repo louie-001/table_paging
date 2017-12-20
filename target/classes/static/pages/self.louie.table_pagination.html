@@ -44,7 +44,7 @@
                 <tr>
                     <th><input type="checkbox"></th>
                     <th>序号</th>
-                    <th>账号</th>
+                    <th>会员号</th>
                     <th>姓名</th>
                     <th>手机号</th>
                     <th>办公电话</th>
@@ -114,7 +114,7 @@
 
     function getUserByPage(pageNow) {
         $.ajax({
-            url:"http://localhost/user/"+pageNow,
+            url:"/user/"+pageNow,
             success:function (datas) {
                 vueApp.userList = datas.content;
                 vueApp.totalPages = datas.totalPages;
