@@ -55,7 +55,7 @@
                 <tbody>
                 <tr v-for="(user,index) in userList">
                     <td><input type="checkbox" :value="index" v-model="checkedRows"></td>
-                    <td>{{pageNow*10 + index+1}}</td>
+                    <td>{{pageNow*perPage + index+1}}</td>
                     <td>{{user.id}}</td>
                     <td>{{user.username}}</td>
                     <td>{{user.mobile}}</td>
@@ -95,7 +95,7 @@
         el:"#vueApp",
         data:{
             userList:[],
-            perPage:10,
+            perPage:20,
             pageNow:0,
             totalPages:0,
             checkedRows:[]
